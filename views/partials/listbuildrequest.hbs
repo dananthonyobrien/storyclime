@@ -1,0 +1,59 @@
+
+
+<table class="ui table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Size</th>
+      <th>Finish</th>
+      <th>Garage</th>
+      <th>Patio</th>
+      <th>Additional Information</th>
+      <th>Budget</th>
+      <th>Estimated Cost</th>
+      <th>Over/Under Budget</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each buildrequest}}
+      <tr>
+        <td>
+          {{name}}
+        </td>
+        <td>
+          {{type}}
+        </td>
+        <td>
+          {{size}}
+        </td>
+        <td>
+          {{finish}}
+        </td>
+        <td>
+          {{garage}}
+        </td>
+        <td>
+          {{patio}}
+        </td>
+        <td>
+          {{addinfo}}
+        </td>
+        <td>
+          €{{budget}}
+        </td>
+        <td>
+          €{{estimatedCost}}
+        </td>
+        <td>
+          {{overrun}}%
+        </td>
+        <td>
+          <a href="/dashboard/deletebuildrequest/{{id}}" class="ui icon button">
+            <i class="icon trash"></i>
+          </a>
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

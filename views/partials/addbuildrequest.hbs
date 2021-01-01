@@ -1,0 +1,56 @@
+<form class="ui stacked segment form" action="/dashboard/addbuildrequest" method="POST">
+
+  <div class="eight fields">
+    <div class="field">
+      <label>Name</label>
+      <input placeholder="eg. Cherry Grove" type="text" name="name">
+    </div>
+    <div class="field">
+      <label>Type</label>
+      <input placeholder="Bungalow/Dormer/Two Story" type="text" name="type">
+    </div>
+    <div class="field">
+      <label>Size (Metres Sq.)</label>
+      <input placeholder="eg. 150" type="text" name="size">
+    </div>
+    <div class="field">
+      <label>Finish</label>
+      <input placeholder="Standard/Luxury" type="text" name="finish">
+    </div>
+    <div class="field">
+      <label>Garage</label>
+      <input placeholder="y/n" type="text" name="garage">
+    </div>
+    <div class="field">
+      <label>Patio</label>
+      <input placeholder="y/n" type="text" name="patio">
+    </div>
+     <div class="field">
+      <label>Budget</label>
+      <input placeholder="eg. 200000" type="text" name="budget">
+    </div>
+    <div class="field">
+      <label>Additional Info</label>
+      <input placeholder="Other relevant information" type="text" name="addinfo">
+    </div>
+    <!---
+    <div class="ui menu">
+  <a class="browse item">
+    Garage
+    <i class="dropdown icon"></i>
+  </a>
+</div>
+<div class="ui popup bottom">
+      <div class="ui link list">
+        <a class="item">No Garage</a>
+        <a class="item">One Car Garage</a>
+        <a class="item">Two Car Garage</a>
+      </div>
+</div>
+</div>
+      --->
+  </div>
+  <button class="ui blue submit button">Submit Build Request</button>
+</form>
+
+

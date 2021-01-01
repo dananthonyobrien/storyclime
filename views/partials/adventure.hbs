@@ -1,0 +1,117 @@
+<!--- Partial to display adventure story dashboard --->
+<section class="ui segment">
+	<img class = "ui fluid image" src = "https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2FScreenshot%202020-11-24%20at%2017.31.25.png?v=1606239176842">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+      var settings = {
+        "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
+        "method": "GET",
+        "timeout": 0,
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var content = Math.round(response[737].AT.av);  //response.length-1
+       $("#solTemp").append(content); 
+   });
+      </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+      var settings = {
+        "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
+        "method": "GET",
+        "timeout": 0,
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var content = Math.round(response[737].PRE.av/100);  
+       $("#solWind").append(content); 
+   });
+      </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+      var settings = {
+        "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
+        "method": "GET",
+        "timeout": 0,
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var content = Math.round(response[737].HWS.av);     // Math.round(response[response.length-10].HWS.av);  
+       $("#solPressure").append(content); 
+   });
+      </script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script>
+      var settings = {
+        "url": "https://api.openweathermap.org/data/2.5/weather?zip=95050&units=imperial&appid=9c1799a40366712bed5701629d87a59e",
+        "method": "GET",
+        "timeout": 0,
+      };
+
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var content = Math.round(response.wind.speed);
+        $("#windSpeed").append(content);
+      });
+
+      </script>
+</section>
+		<!--- <p>Mars temperature: <span id="solTemp"></span><p> Earth wind speed: <span id="windSpeed"></span> --->
+		<section class="ui center aligned middle aligned stacked five column grid segment">
+			<div class="column">
+      {{#if teddyType}}
+        
+				<img class="ui center aligned tiny image"
+             src="https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fbear2.png?v=1609272019439">
+        {{else}}
+      
+					<img class ="ui tiny image" src = "https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fbear2.png?v=1609272019439">
+      {{/if}}
+      </div>
+      <div class="column">
+						<p>
+							<span class="ui massive text"> Good day Space Commander {{user.childFName}}. I am Space Lieutenant {{user.teddyName}}. Push Lift Off to launch your StoryClime adventure! </span>
+						</p>
+						<button class="ui blue button">
+							<a href="/adventure">LIFT OFF</a>
+						</button>
+					</div>
+				<div class="column">
+					<p> Mars Temperature: 
+						<span id="solTemp"></span>°C
+					</p>
+					<p> Mars Windspeed: 
+						<span id="solWind"></span>km/h
+					</p>
+					<p> Mars Pressure: 
+						<span id="solPressure"></span>Pa
+					</p>
+          </div>
+      <div class="column">
+					<p>Earth Temperature: 
+						<span id="tempPi">°C</span>
+					</p>
+					<p> Earth Windspeed: 
+						<span id="windSpeed"></span>km/h
+					</p>
+					<p>Earth Pressure: 
+						<span id="pressurePi">Pa</span>
+					</p>
+				</div>
+      <div class="column">
+					<p>Shuttle Pitch: 
+						<span id="pitch">°C</span>
+					</p>
+					<p> Shuttle Yaw: 
+						<span id="yaw"></span>km/h
+					</p>
+					<p>Shuttle Roll: 
+						<span id="roll">Pa</span>
+					</p>
+				</div>
+			</section>
+		
+
