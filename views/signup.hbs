@@ -1,0 +1,48 @@
+<!--- User Signup Page --->
+{{> welcomemenu id="signup"}}
+
+
+<form class="ui stacked segment form" action="/register" method="POST">
+  <h3 class="ui header">Register</h3>
+  <div class="two fields">
+    <div class="field">
+      <label>Parent First Name</label>
+      <input placeholder="First Name" type="text"  name="firstName">
+    </div>
+    <div class="field">
+      <label>Parent Last Name</label>
+      <input placeholder="Last Name" type="text"  name="lastName">
+    </div>
+  </div>
+  <div class="field">
+    <label>Email</label>
+    <input placeholder="Email" type="text" name="email">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" name="password">
+  </div>
+  <div class="field">
+    <label>Child First Name</label>
+    <input type="text" name="childFName">
+  </div>
+  <div class="field">
+    <label>Child DOB</label>
+    <input type="text" name="childDOB">
+  </div>
+  <div class="field">
+    <label>Teddy Name</label>
+    <input type="text" name="teddyName">
+  </div>
+  <div class="field">    
+    <label>Teddy Type</label>
+    <!--<select class="ui dropdown">
+  <option>Bear</option>
+  <option>Rabbit</option> -->
+  <input type "text" name = "text">
+</select>
+    <input type="text" name="teddyType">
+  </div>
+  
+  <button class="ui blue submit button">Submit</button>
+</form>
