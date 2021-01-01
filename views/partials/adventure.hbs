@@ -11,10 +11,13 @@
 
       $.ajax(settings).done(function (response) {
         console.log(response);
-        var content = Math.round(response[737].AT.av);  //response.length-1
+        var content = Math.round(response[738].AT.av);  //response.length-1
        $("#solTemp").append(content); 
    });
       </script>
+  
+  
+  
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>
       var settings = {
@@ -25,8 +28,8 @@
 
       $.ajax(settings).done(function (response) {
         console.log(response);
-        var content = Math.round(response[737].PRE.av/100);  
-       $("#solWind").append(content); 
+        var content = Math.round(response[738].PRE.av);  
+       $("#solPressure").append(content); 
    });
       </script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -39,8 +42,8 @@
 
       $.ajax(settings).done(function (response) {
         console.log(response);
-        var content = Math.round(response[737].HWS.av);     // Math.round(response[response.length-10].HWS.av);  
-       $("#solPressure").append(content); 
+        var content = Math.round((response[738].HWS.av)*3.6);     // Math.round(response[response.length-10].HWS.av);  
+       $("#solWind").append(content); 
    });
       </script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -51,13 +54,118 @@
         "timeout": 0,
       };
 
+    
       $.ajax(settings).done(function (response) {
         console.log(response);
         var content = Math.round(response.wind.speed);
         $("#windSpeed").append(content);
       });
 
-      </script>
+      </script> 
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC7yH3nNRQ2ttLxn10kPY93UkrgaJPaLac",
+    authDomain: "storyclime.firebaseapp.com",
+    databaseURL: "https://storyclime.firebaseio.com",
+    projectId: "storyclime",
+    storageBucket: "storyclime.appspot.com",
+    messagingSenderId: "369261143174",
+    appId: "1:369261143174:web:525a65782e163194b5dd07",
+    measurementId: "G-RC9E8NB2L8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
+  
+  <script>
+  var settings = {
+        "url": "https://storyclime.firebaseio.com/sensor.json",
+        "method": "GET",
+        "timeout": 0,
+      };
+
+    
+      $.ajax(settings).done(function (response) {
+        console.log(response);
+        var content = response.sense.Temperature;
+        var pressure = response.sense.Pressure;
+        var pitch = response.sense.Pitch;
+        var roll = response.sense.Roll;
+        var yaw = response.sense.Yaw;
+        console.log(content);
+        $("#tempPi").append(content);
+        $("#pressurePi").append(pressure);
+        $("#pitch").append(pitch);
+        $("#roll").append(roll); 
+        $("#yaw").append(yaw);
+      });
+
+
+  
+  
+  
+//  var ref = database.ref("sensor");
+//ref.on("value", gotData, errData);
+  
+  
+//  $.function gotData(data) {
+ // var content = data.sensor.sense.Temperature;
+ // $("#tempPi").append(content);
+ // };
+  
+  
+  //var ref = firebase.database().ref();
+
+//ref.on("value", function(snapshot) {
+//   console.log(snapshot.val());
+//}, function (error) {
+//   console.log("Error: " + error.code);
+//});
+  
+    
+    // Use  keys to iterate over the object
+  //var keys = Object.keys(sensor);
+  
+    
+    
+  //for (var i = 0; i < keys.length; i++) {
+  //  var key = keys[i];
+  //   Look at each sensor object
+  //  var sensor = sensor[key];
+//  }
+//}
+  
+  //    var settings = {
+  //      "url": "https://storyclime.firebaseio.com/",
+ //       "method": "GET",
+ //       "timeout": 0,
+ //     };
+
+    
+  //    $.ajax(settings).done(function (response) {
+  //     console.log(response);
+  //      var content = response.sense.Temperature;
+ //       $("#tempPi").append(content);
+  //    });
+ 
+
+  
+    
+  
+</script>
+  
+  
 </section>
 		<!--- <p>Mars temperature: <span id="solTemp"></span><p> Earth wind speed: <span id="windSpeed"></span> --->
 		<section class="ui center aligned middle aligned stacked five column grid segment">
@@ -92,24 +200,24 @@
           </div>
       <div class="column">
 					<p>Earth Temperature: 
-						<span id="tempPi">°C</span>
+						<span id="tempPi"></span>°C
 					</p>
 					<p> Earth Windspeed: 
 						<span id="windSpeed"></span>km/h
 					</p>
 					<p>Earth Pressure: 
-						<span id="pressurePi">Pa</span>
+						<span id="pressurePi"></span>Pa
 					</p>
 				</div>
       <div class="column">
 					<p>Shuttle Pitch: 
-						<span id="pitch">°C</span>
+						<span id="pitch"></span>°
 					</p>
 					<p> Shuttle Yaw: 
-						<span id="yaw"></span>km/h
+						<span id="yaw"></span>°
 					</p>
 					<p>Shuttle Roll: 
-						<span id="roll">Pa</span>
+						<span id="roll"></span>°
 					</p>
 				</div>
 			</section>
