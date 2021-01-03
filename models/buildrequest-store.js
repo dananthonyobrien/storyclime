@@ -23,7 +23,7 @@ const buildRequestStore = {
     return this.store.findOneBy(this.collection, { id: id });
   },
 
-  addBuildRequest(buildRequest) {
+  /* addBuildRequest(buildRequest) {
     if (buildRequest.finish === "s") {
       estimatedCost = buildRequest.size * 2500;
     } else if (buildRequest.finish === "l") {
@@ -48,12 +48,41 @@ const buildRequestStore = {
       ((estimatedCost - buildRequest.budget) / buildRequest.budget) * 100
     );
     buildRequest.overrun = overrun;
-    //currentCost = buildRequest.estimatedCost[buildRequest.length];
-    //currentCost = this.collection[this.collection.length-1].estimatedCost;
-    //this.collection.currentCost = currentCost;
+    this.store.add(this.collection, buildRequest);
+    this.store.save();
+  }, */
+  
+  
+    addBuildRequest(buildRequest) {
+    
+      if (buildRequest.finish === "s") {
+      estimatedCost = buildRequest.size * 2500;
+    } else if (buildRequest.finish === "l") {
+      estimatedCost = buildRequest.size * 2800;
+    } else {
+      estimatedCost = "Input Error";
+    }
+    if (buildRequest.garage === "y") {
+      estimatedCost = estimatedCost + 12000;
+    } else if (buildRequest.garage === "n") {
+      estimatedCost = estimatedCost;
+    } else {
+      estimatedCost = "Input Error";
+    }
+    if (buildRequest.patio === "y") {
+      estimatedCost = estimatedCost + 2000;
+    } else if (buildRequest.patio === "n") {
+      estimatedCost = estimatedCost;
+    } else estimatedCost = "Input Error";
+    buildRequest.estimatedCost = estimatedCost;
+    overrun = Math.round(
+      ((estimatedCost - buildRequest.budget) / buildRequest.budget) * 100
+    );
+    buildRequest.overrun = overrun;
     this.store.add(this.collection, buildRequest);
     this.store.save();
   },
+  
 
   getCurrentCost(buildRequest) {
     currentCost = buildRequest.estimatedCost[buildRequest.length];

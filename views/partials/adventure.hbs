@@ -1,7 +1,8 @@
 <!--- Partial to display adventure story dashboard --->
-<section class="ui segment">
-	<img class = "ui fluid image" src = "https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2FScreenshot%202020-11-24%20at%2017.31.25.png?v=1606239176842">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+	<img class = "ui fluid image" src = "https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fmoon_mission_land.png?v=1609262712567">
+		
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>
       var settings = {
         "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
@@ -11,50 +12,24 @@
 
       $.ajax(settings).done(function (response) {
         console.log(response);
-        var content = Math.round(response[738].AT.av);  //response.length-1
-       $("#solTemp").append(content); 
-   });
-      </script>
-  
-  
-  
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script>
-      var settings = {
-        "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
-        "method": "GET",
-        "timeout": 0,
-      };
+        var content = Math.round(response[740].AT.av);  //response.length-1
+        var pressure = Math.round(response[740].PRE.av);  
+        var wind = Math.round((response[740].HWS.av)*3.6);
+        $("#solTemp").append(content);       
+        $("#solPressure").append(pressure); 
+        $("#solWind").append(wind); 
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var content = Math.round(response[738].PRE.av);  
-       $("#solPressure").append(content); 
    });
-      </script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script>
-      var settings = {
-        "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
-        "method": "GET",
-        "timeout": 0,
-      };
+      
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var content = Math.round((response[738].HWS.av)*3.6);     // Math.round(response[response.length-10].HWS.av);  
-       $("#solWind").append(content); 
-   });
       </script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>
       var settings = {
         "url": "https://api.openweathermap.org/data/2.5/weather?zip=95050&units=imperial&appid=9c1799a40366712bed5701629d87a59e",
         "method": "GET",
         "timeout": 0,
       };
-
-    
+      
       $.ajax(settings).done(function (response) {
         console.log(response);
         var content = Math.round(response.wind.speed);
@@ -62,7 +37,6 @@
       });
 
       </script> 
-  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
@@ -111,112 +85,78 @@
         $("#yaw").append(yaw);
       });
 
-
-  
-  
-  
-//  var ref = database.ref("sensor");
-//ref.on("value", gotData, errData);
-  
-  
-//  $.function gotData(data) {
- // var content = data.sensor.sense.Temperature;
- // $("#tempPi").append(content);
- // };
-  
-  
-  //var ref = firebase.database().ref();
-
-//ref.on("value", function(snapshot) {
-//   console.log(snapshot.val());
-//}, function (error) {
-//   console.log("Error: " + error.code);
-//});
-  
     
-    // Use  keys to iterate over the object
-  //var keys = Object.keys(sensor);
-  
-    
-    
-  //for (var i = 0; i < keys.length; i++) {
-  //  var key = keys[i];
-  //   Look at each sensor object
-  //  var sensor = sensor[key];
-//  }
-//}
-  
-  //    var settings = {
-  //      "url": "https://storyclime.firebaseio.com/",
- //       "method": "GET",
- //       "timeout": 0,
- //     };
-
-    
-  //    $.ajax(settings).done(function (response) {
-  //     console.log(response);
-  //      var content = response.sense.Temperature;
- //       $("#tempPi").append(content);
-  //    });
- 
-
-  
-    
-  
 </script>
   
-  
-</section>
 		<!--- <p>Mars temperature: <span id="solTemp"></span><p> Earth wind speed: <span id="windSpeed"></span> --->
-		<section class="ui center aligned middle aligned stacked five column grid segment">
+		<section class="ui inverted center aligned middle aligned stacked five column grid segment">
 			<div class="column">
-      {{#if teddyType}}
-        
-				<img class="ui center aligned tiny image"
-             src="https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fbear2.png?v=1609272019439">
-        {{else}}
+     
+      <button class="ui blue button">
+        <p>LIFT OFF</p>
+						</button>
+        <a href="https://maker.ifttt.com/trigger/with/key/c_uWawFw5OZBwjbo9XgBLW">PUSH</a>
       
-					<img class ="ui tiny image" src = "https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fbear2.png?v=1609272019439">
-      {{/if}}
+        <form class="ui stacked segment form" action="https://maker.ifttt.com/trigger/with/key/c_uWawFw5OZBwjbo9XgBLW" method="POST">
+        
+          <button class="ui blue button">
+        <p>LIFT OFF</p>
+						</button>
+        </form>
+        
+        
       </div>
       <div class="column">
+        
+        
+        
+   <!---     <div class="ui card">
+  <div class="ui slide masked reveal image">
+    <p class="visible content">Lift off!</p>
+    <p class="hidden content">Ah, Mars!</p>
+  </div> --->
+
+        
+        
+        <h1>Intercom</h1>
 						<p>
 							<span class="ui massive text"> Good day Space Commander {{user.childFName}}. I am Space Lieutenant {{user.teddyName}}. Push Lift Off to launch your StoryClime adventure! </span>
 						</p>
-						<button class="ui blue button">
-							<a href="/adventure">LIFT OFF</a>
-						</button>
+						
 					</div>
 				<div class="column">
-					<p> Mars Temperature: 
+          <h1>Mars</h1>
+					<p>Temperature: 
 						<span id="solTemp"></span>°C
 					</p>
-					<p> Mars Windspeed: 
+					<p>Windspeed: 
 						<span id="solWind"></span>km/h
 					</p>
-					<p> Mars Pressure: 
+					<p>Pressure: 
 						<span id="solPressure"></span>Pa
 					</p>
           </div>
       <div class="column">
-					<p>Earth Temperature: 
+        <h1>Earth</h1>
+					<p>Temperature: 
 						<span id="tempPi"></span>°C
 					</p>
-					<p> Earth Windspeed: 
+					<p>Windspeed: 
 						<span id="windSpeed"></span>km/h
 					</p>
-					<p>Earth Pressure: 
+					<p>Pressure: 
 						<span id="pressurePi"></span>Pa
 					</p>
 				</div>
       <div class="column">
-					<p>Shuttle Pitch: 
+        <h1>Shuttle</h1>
+					<p>Pitch: 
 						<span id="pitch"></span>°
 					</p>
-					<p> Shuttle Yaw: 
+					<p> Yaw: 
 						<span id="yaw"></span>°
 					</p>
-					<p>Shuttle Roll: 
+					<p>Roll: 
 						<span id="roll"></span>°
 					</p>
 				</div>
