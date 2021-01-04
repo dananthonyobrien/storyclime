@@ -1,52 +1,54 @@
-<!--- Partial to display adventure story dashboard --->
+<!--- Partial to display StoryClime cockpit dashboard --->
+<div class="ui fade reveal">
+  <div class="visible content">
+    <img src="https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fmars_mission.png?v=1609262647913" class="ui fluid image">
+  </div>
+  <div class="hidden content">
+    <img src="https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fmars_mission_land.png?v=1609262634929" class="ui fluid image">
+  </div>
+</div>
 
-	<img class = "ui fluid image" src = "https://cdn.glitch.com/e7becb0e-d74c-4c64-99bf-8d26aed82af3%2Fmoon_mission_land.png?v=1609262712567">
-		
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script>
-      var settings = {
-        "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
-        "method": "GET",
-        "timeout": 0,
-      };
 
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var content = Math.round(response[740].AT.av);  //response.length-1
-        var pressure = Math.round(response[740].PRE.av);  
-        var wind = Math.round((response[740].HWS.av)*3.6);
-        $("#solTemp").append(content);       
-        $("#solPressure").append(pressure); 
-        $("#solWind").append(wind); 
+<!---  API taking temperature, pressure, and wind readings from NASA Mars Insight Weather Station --->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+  var settings = {
+    "url": "https://api.nasa.gov/insight_weather/?api_key=Q6hHO47AZAohJCYVNKfcnlLRoC8RWLZnBbxg7e7t&feedtype=json&ver=1.0",
+    "method": "GET",
+    "timeout": 0,
+  };
 
-   });
+  <!--- Unresolved issue: response[response.length-1] not working, so sol value (Martian day) entered manually. Also, some sol days have missing data --->
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    var content = Math.round(response[742].AT.av);  //response.length-1
+    var pressure = Math.round(response[742].PRE.av);  
+    var wind = Math.round((response[742].HWS.av)*3.6);
+    $("#solTemp").append(content);       
+    $("#solPressure").append(pressure); 
+    $("#solWind").append(wind); 
+  });
+</script>
+
+<!---  API taking wind readings from Open Weather App --->
+<script>
+  var settings = {
+    "url": "https://api.openweathermap.org/data/2.5/weather?zip=95050&units=imperial&appid=9c1799a40366712bed5701629d87a59e",
+    "method": "GET",
+    "timeout": 0,
+  };
       
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    var content = Math.round(response.wind.speed);
+    $("#windSpeed").append(content);
+  });
+</script> 
 
-      </script>
-		<script>
-      var settings = {
-        "url": "https://api.openweathermap.org/data/2.5/weather?zip=95050&units=imperial&appid=9c1799a40366712bed5701629d87a59e",
-        "method": "GET",
-        "timeout": 0,
-      };
-      
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var content = Math.round(response.wind.speed);
-        $("#windSpeed").append(content);
-      });
-
-      </script> 
-
-<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!---  API taking temperature, pressure, roll, pitch, and yaw readings from RaspberryPi through Google Firebase Realtime Database --->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-app.js"></script>
-
-<!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
 <script src="https://www.gstatic.com/firebasejs/8.2.1/firebase-analytics.js"></script>
 <script>
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
   var firebaseConfig = {
     apiKey: "AIzaSyC7yH3nNRQ2ttLxn10kPY93UkrgaJPaLac",
     authDomain: "storyclime.firebaseapp.com",
@@ -57,109 +59,90 @@
     appId: "1:369261143174:web:525a65782e163194b5dd07",
     measurementId: "G-RC9E8NB2L8"
   };
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
-  </script>
-  
-  <script>
+</script>
+
+<script>
   var settings = {
-        "url": "https://storyclime.firebaseio.com/sensor.json",
-        "method": "GET",
-        "timeout": 0,
-      };
+    "url": "https://storyclime.firebaseio.com/sensor.json",
+    "method": "GET",
+    "timeout": 0,
+  };
 
-    
-      $.ajax(settings).done(function (response) {
-        console.log(response);
-        var content = response.sense.Temperature;
-        var pressure = response.sense.Pressure;
-        var pitch = response.sense.Pitch;
-        var roll = response.sense.Roll;
-        var yaw = response.sense.Yaw;
-        console.log(content);
-        $("#tempPi").append(content);
-        $("#pressurePi").append(pressure);
-        $("#pitch").append(pitch);
-        $("#roll").append(roll); 
-        $("#yaw").append(yaw);
-      });
-
-    
+  $.ajax(settings).done(function (response) {
+    console.log(response);
+    var content = response.sense.Temperature;
+    var pressure = response.sense.Pressure;
+    var pitch = response.sense.Pitch;
+    var roll = response.sense.Roll;
+    var yaw = response.sense.Yaw;
+    console.log(content);
+    $("#tempPi").append(content);
+    $("#pressurePi").append(pressure);
+    $("#pitch").append(pitch);
+    $("#roll").append(roll); 
+    $("#yaw").append(yaw);
+  }); 
 </script>
   
-		<!--- <p>Mars temperature: <span id="solTemp"></span><p> Earth wind speed: <span id="windSpeed"></span> --->
-		<section class="ui inverted center aligned middle aligned stacked five column grid segment">
-			<div class="column">
-     
-      <button class="ui blue button">
-        <p>LIFT OFF</p>
-						</button>
-        <a href="https://maker.ifttt.com/trigger/with/key/c_uWawFw5OZBwjbo9XgBLW">PUSH</a>
-      
-        <form class="ui stacked segment form" action="https://maker.ifttt.com/trigger/with/key/c_uWawFw5OZBwjbo9XgBLW" method="POST">
-        
-          <button class="ui blue button">
-        <p>LIFT OFF</p>
-						</button>
-        </form>
-        
-        
-      </div>
-      <div class="column">
-        
-        
-        
-   <!---     <div class="ui card">
-  <div class="ui slide masked reveal image">
-    <p class="visible content">Lift off!</p>
-    <p class="hidden content">Ah, Mars!</p>
-  </div> --->
+
+<!--- Display data on dashboard --->
+<section class="ui inverted center aligned middle aligned stacked four column grid segment">
+  <div class="grey column">
+    <div class="ui inverted button" data-tooltip="Hover over the viewing pane to land on Mars and see its oval shaped moon, Phobos" data-position="bottom center">
+      <h1>Intercom</h1>
+    </div>
+	    <p>
+        Good day Space Commander {{user.childFName}}. I am Space Lieutenant {{user.teddyName}}. Today's mission: explore Mars! Study the dashboard measurements, hovering the mouse to find out about the differences between Earth and Mars. </span>
+			</p>				
+	</div>
+	<div class="column">
+    <div class="ui inverted button" data-tooltip="At its closest, Mars is 34 million miles away from Earth" data-position="bottom center">
+      <h1>Mars</h1>
+    </div>
+			<p>Temperature: 
+				<span id="solTemp"></span>°C
+			</p>
+			<p>Windspeed: 
+				<span id="solWind"></span>km/h
+			</p>
+			<p>Pressure: 
+				<span id="solPressure"></span>Pa
+			</p>
+  </div>
+  <div class="column">
+    <div class="ui inverted button" data-tooltip="Earth has one moon, while Mars has two" data-position="bottom center">
+      <h1>Earth</h1>
+    </div>
+     		  <p>Temperature: 
+			  <span id="tempPi"></span>°C
+			</p>
+			<p>Windspeed: 
+			  <span id="windSpeed"></span>km/h
+			</p>
+			<p>Pressure: 
+			  <span id="pressurePi"></span>Pa
+			</p>
+		</div>
+    <div class="column">
+      <div class="ui inverted button" data-tooltip="NASA is aiming to land humans on Mars in the 2030s" data-position="bottom center">
+      <h1>Shuttle</h1>
+    </div>
+			  <p>Pitch: 
+				  <span id="pitch"></span>°
+				</p>
+				<p> Yaw: 
+				  <span id="yaw"></span>°
+				</p>
+				<p>Roll: 
+				  <span id="roll"></span>°
+				</p>
+		</div>
+
+
 
         
         
-        <h1>Intercom</h1>
-						<p>
-							<span class="ui massive text"> Good day Space Commander {{user.childFName}}. I am Space Lieutenant {{user.teddyName}}. Push Lift Off to launch your StoryClime adventure! </span>
-						</p>
-						
-					</div>
-				<div class="column">
-          <h1>Mars</h1>
-					<p>Temperature: 
-						<span id="solTemp"></span>°C
-					</p>
-					<p>Windspeed: 
-						<span id="solWind"></span>km/h
-					</p>
-					<p>Pressure: 
-						<span id="solPressure"></span>Pa
-					</p>
-          </div>
-      <div class="column">
-        <h1>Earth</h1>
-					<p>Temperature: 
-						<span id="tempPi"></span>°C
-					</p>
-					<p>Windspeed: 
-						<span id="windSpeed"></span>km/h
-					</p>
-					<p>Pressure: 
-						<span id="pressurePi"></span>Pa
-					</p>
-				</div>
-      <div class="column">
-        <h1>Shuttle</h1>
-					<p>Pitch: 
-						<span id="pitch"></span>°
-					</p>
-					<p> Yaw: 
-						<span id="yaw"></span>°
-					</p>
-					<p>Roll: 
-						<span id="roll"></span>°
-					</p>
-				</div>
-			</section>
-		
+        
 
