@@ -16,12 +16,8 @@ router.post('/register', accounts.register);
 router.post('/authenticate', accounts.authenticate);
 
 router.get("/dashboard", dashboard.index);
-router.post("/dashboard/addbuildrequest", dashboard.addBuildRequest);
-router.get("/dashboard/deletebuildrequest/:id", dashboard.deleteBuildRequest);
-router.get("/dashboard/listbuildrequests");
-
-
 router.get("/about", about.index);
+
 
 
 
